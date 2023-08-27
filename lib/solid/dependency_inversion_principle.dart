@@ -5,12 +5,11 @@
 // Main purpose of this principle is to do decoupling
 
 void main() {
-  final service = Service();
+  final service = Service(FirebaseConnection());
   // now no need to change anything in service class
   // just do the below thing
 
   // service.connection = MyDbConnection();
-  service.connection = FirebaseConnection();
   service.attach();
 }
 
@@ -19,7 +18,9 @@ abstract class ConnectionInterface {
 }
 
 class Service {
-  ConnectionInterface? connection;
+  final ConnectionInterface? connection;
+
+  Service(this.connection);
 
   void attach() {
     connection!.connect();
